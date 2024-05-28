@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página en Construcción</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .content img {
+            width: 150px;
+            height: auto;
+        }
+
+        .content h1 {
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video id="video2" muted>
+            <source src="C:\Users\tomyb\Desktop\Myliff\video2.mp4" type="video/mp4">
+        </video>
+        <video id="video1" muted>
+            <source src="C:\Users\tomyb\Desktop\Myliff\video1.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="content">
+        <img src="C:\Users\tomyb\Desktop\Myliff\Myliff (1) (1).png" alt="Logo">
+        <h1 id="message">This page is not available in your region</h1>
+    </div>
+
+    <script>
+        const video1 = document.getElementById('video1');
+        const video2 = document.getElementById('video2');
+        const message = document.getElementById('message');
+
+       let showMessage1 = true;
+        video1.play();
+
+        video1.addEventListener('ended', () => {
+            video1.style.display = 'none';
+            video2.style.display = 'block';
+            video2.play();
+        });
+
+        video2.addEventListener('ended', () => {
+            video2.style.display = 'none';
+            video1.style.display = 'block';
+            video1.play();
+        });
+
+        setInterval(() => {
+            message.style.opacity = 0;
+            setTimeout(() => {
+                message.textContent = showMessage1 ? "We are still working on a new way to share photos" : "This page is not available in your region";
+                message.style.opacity = 1;
+                showMessage1 = !showMessage1;
+            }, 1000); // Duración de la transición de opacidad
+        }, 5000); // Intervalo de cambio de mensaje
+
+
+        // Iniciar con el primer video visible y el segundo oculto
+        video1.style.display = 'block';
+        video2.style.display = 'none';
+    </script>
+</body>
+</html>
